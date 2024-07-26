@@ -14,11 +14,13 @@ on:
 jobs:
 
   test:
-    runs-on: ubuntu-latest
+    # runs-on: ubuntu-latest
+    runs-on:  ${{ matrix.os }}
      #usando strategias para rodar testes em mais de uma versão do go com o uso da matrix
     strategy:
       matrix:
         go_version: ['1.18','1.17','>=1.18']
+        os: ['ubuntu-latest', 'ubuntu-18.04']
     
     steps:
     - uses: actions/checkout@v4
@@ -43,7 +45,11 @@ jobs:
 #separando as tarefas
   build:
     needs: test
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    # adicionando uma nova estrategia para rodar aqui tambem
+    strategy:
+      matrix:
+        os: ['ubuntu-latest', 'ubuntu-18.04']
     steps:
     - uses: actions/checkout@v4
       #faz o build do nosso projeto
