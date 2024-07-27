@@ -20,7 +20,8 @@ jobs:
     strategy:
       matrix:
         go_version: ['1.18','1.17','>=1.18']
-        os: ['ubuntu-latest', 'ubuntu-18.04']
+        os: ['ubuntu-18.04']
+        # os: ['ubuntu-latest', 'ubuntu-18.04']
     
     steps:
     - uses: actions/checkout@v4
@@ -50,7 +51,8 @@ jobs:
     # adicionando uma nova estrategia para rodar aqui tambem
     strategy:
       matrix:
-        os: ['ubuntu-latest', 'ubuntu-18.04']
+        os: ['ubuntu-18.04']
+        # os: ['ubuntu-latest', 'ubuntu-18.04']
     steps:
     - uses: actions/checkout@v4
       #faz o build do nosso projeto
