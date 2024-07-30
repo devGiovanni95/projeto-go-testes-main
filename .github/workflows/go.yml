@@ -14,7 +14,8 @@ on:
 jobs:
 
   test:
-    runs-on:  ${{ matrix.os }}
+    runs-on: ubuntu-latest
+    # runs-on:  ${{ matrix.os }}
     # runs-on: ubuntu-latest
      #usando strategias para rodar testes em mais de uma versão do go com o uso da matrix
     env:
@@ -28,7 +29,7 @@ jobs:
       matrix:
         go_version: ['1.18']
         # go_version: ['1.18','1.17','>=1.18']
-        os: ['ubuntu-18.04']
+        # os: ['ubuntu-18.04']
         # os: ['ubuntu-latest', 'ubuntu-18.04']
     
     steps:
@@ -55,18 +56,29 @@ jobs:
 #separando as tarefas
   build:
     needs: test
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     # adicionando uma nova estrategia para rodar aqui tambem
-    strategy:
-      matrix:
-        os: ['ubuntu-18.04']
+    # strategy:
+      # matrix:
+        # os: ['ubuntu-18.04']
         # os: ['ubuntu-latest', 'ubuntu-18.04']
     steps:
     - uses: actions/checkout@v4
       #faz o build do nosso projeto
     - name: Build
       run: go build -v main.go
-  
+
+
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v4.3.4
+      with:
+        # Artifact name
+        name: programa
+        # A file, directory or wildcard pattern that describes what to upload
+        path: main
+        # The desired behavior if no files are found using the provided path.
+
+          
   docker: 
     needs: build
     uses: ./.github/workflows/Docker.yml
