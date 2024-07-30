@@ -17,6 +17,13 @@ jobs:
     runs-on:  ${{ matrix.os }}
     # runs-on: ubuntu-latest
      #usando strategias para rodar testes em mais de uma versão do go com o uso da matrix
+    env:
+      HOST: localhost 
+      PORT: 5432
+      USER: root 
+      PASSWORD: root 
+      DBNAME: root
+
     strategy:
       matrix:
         go_version: ['1.18']
